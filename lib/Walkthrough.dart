@@ -51,6 +51,7 @@ _addPages();
                       padding: const EdgeInsets.all(20),
                       child: Text('Welcome',style: TextStyle(color: Colors.white,fontSize: 35),),
                     ),
+                    Text( pages[index].text,style: TextStyle(color: Colors.white)),
                   ],
                 ),
               )
