@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:news_application/utilities/MyTheme.dart';
 
-import 'Walkthrough.dart';
+import 'screens/Walkthrough.dart';
+import 'screens/HomePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Walkthrough(),
+      theme: AppTheme.appTheme
     );
   }
 }

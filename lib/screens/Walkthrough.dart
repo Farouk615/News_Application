@@ -2,8 +2,9 @@ import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_application/screens/HomePage.dart';
 import 'package:page_view_indicator/page_view_indicator.dart';
-import 'PageModel.dart';
+import '../PageModel.dart';
 
 class Walkthrough extends StatefulWidget {
   const Walkthrough({Key? key}) : super(key: key);
@@ -105,11 +106,13 @@ _addPages();
 
                   width: double.infinity,
                   child: ElevatedButton(style: ButtonStyle(),
-                    onPressed: ()
-                    {},
+                      onPressed: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                      },
                     child: Text('Get Started',style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
-
-
                   ),
                 ),
               ),
