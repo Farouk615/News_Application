@@ -32,7 +32,10 @@ class _WhatsUpState extends State<WhatsUp> {
           _writeTitle('Recent Updates'),
           _drawRecentUpdates('SPORT','Vettel is Ferrari Number One - Hamilton',Colors.deepOrange),
           _drawRecentUpdates('LIFESTYLE','The City in Pakistan that Loves a British Hairstyles',Colors.lightGreen),
-
+          SizedBox(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.width * 0.05,
+          )
         ],),
     );
   }
