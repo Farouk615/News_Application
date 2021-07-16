@@ -30,17 +30,18 @@ class _WhatsUpState extends State<WhatsUp> {
           _drawLineBreaker(),
           _drawTopStoriesCard(),
           _writeTitle('Recent Updates'),
-          _drawRecentUpdates(),
-          _drawRecentUpdates(),
+          _drawRecentUpdates('SPORT','Vettel is Ferrari Number One - Hamilton',Colors.deepOrange),
+          _drawRecentUpdates('LIFESTYLE','The City in Pakistan that Loves a British Hairstyles',Colors.lightGreen),
 
         ],),
     );
   }
-  Widget _drawRecentUpdates(){
+  Widget _drawRecentUpdates(String title ,  String header , MaterialColor color ){
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: double.infinity,
@@ -51,7 +52,36 @@ class _WhatsUpState extends State<WhatsUp> {
                       fit: BoxFit.cover
                   )
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20 , top: 18),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                width: 95,
+                height: 18,
+                child: Text(title,textAlign: TextAlign.center,style: TextStyle(color: Colors.white),),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20 , top: 15),
+              child: Text(header,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 28),),
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20 , top: 10),
+                  child: Icon(Icons.timer,color: Colors.grey,),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only( top: 10),
+                  child: Text('15 min',style: TextStyle(color: Colors.grey),),
+                )
+              ],
             )
+
           ],
         ),
 
