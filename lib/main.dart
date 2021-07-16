@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:news_application/utilities/MyTheme.dart';
 
 import 'screens/Walkthrough.dart';
-import 'screens/HomePage.dart';
 
 void main() {
   runApp(MyApp());
