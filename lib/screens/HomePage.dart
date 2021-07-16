@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_application/Shared%20UI/Drawer.dart';
 import 'package:news_application/screens/Home_tab/Popular.dart';
 import 'package:news_application/screens/Home_tab/Whats%20new.dart';
 import 'Home_tab/Favorited.dart';
@@ -10,15 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> navMenu= [
-    'Explore',
-    'Headline new',
-    'Read Later',
-    'Videos',
-    'Photos',
-    'Settings',
-    'Layout',
-  ];
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -37,19 +30,7 @@ class _HomePageState extends State<HomePage> {
           ],
           ),
         ),
-        drawer: Drawer(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 150 ),
-            child: ListView.builder(itemBuilder: (BuildContext context,int index){
-              return ListTile(
-                title: Text(navMenu[index]),
-                trailing: Icon(Icons.chevron_right),
-                onTap: (){},
-              );
-            },
-            itemCount: 7,),
-          ),
-        ),
+        drawer: MyDrawer(),
         body: Center(
           child: TabBarView(children: [
             WhatsUp(),

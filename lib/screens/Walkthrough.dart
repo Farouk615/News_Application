@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_application/screens/HomePage.dart';
 import 'package:page_view_indicator/page_view_indicator.dart';
-import '../PageModel.dart';
+import '../Models/PageModel.dart';
 
 class Walkthrough extends StatefulWidget {
   const Walkthrough({Key? key}) : super(key: key);
