@@ -21,14 +21,44 @@ class _WhatsUpState extends State<WhatsUp> {
   Widget build(BuildContext context) {
     return SingleChildScrollView( // if the elements are bigger than the page it will scroll
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _drawHeader(),
-            _drawTopStories(),
-      ],),
+        children: [
+          _drawHeader(),
+          _writeTitle('Top Stories'),
+          _drawTopStoriesCard(),
+          _drawLineBreaker(),
+          _drawTopStoriesCard(),
+          _drawLineBreaker(),
+          _drawTopStoriesCard(),
+          _writeTitle('Recent Updates'),
+          _drawRecentUpdates(),
+          _drawRecentUpdates(),
+
+        ],),
     );
   }
+  Widget _drawRecentUpdates(){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.width * 0.25 ,
+              decoration: BoxDecoration(
+                  image:DecorationImage(
+                      image: ExactAssetImage('assets/images/back.jpg'),
+                      fit: BoxFit.cover
+                  )
+              ),
+            )
+          ],
+        ),
 
+      ),
+    );
+
+  }
   Widget _drawHeader(){
     return Container(
       decoration: BoxDecoration(
@@ -54,12 +84,14 @@ class _WhatsUpState extends State<WhatsUp> {
     );
 
   }
-  Widget _drawTopStories(){
+  Widget _writeTitle(String title){
+    return Text(title,style: TextStyle(color: Colors.grey,),);
+  }
+  Widget _drawTopStoriesCard(){
     return Container(
       color: Color(0xfafafa),
       child: Column(
         children: [
-          Text('Top Stories',style: TextStyle(color: Colors.grey,)),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
@@ -109,6 +141,12 @@ class _WhatsUpState extends State<WhatsUp> {
 
         ],
       ),
+    );
+  }
+  Widget _drawLineBreaker(){
+    return Container(
+      height: 1,
+      color: Colors.black,
     );
   }
 }
