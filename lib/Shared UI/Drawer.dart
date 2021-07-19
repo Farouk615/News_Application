@@ -11,8 +11,8 @@ class MyDrawer extends StatefulWidget {
 
 class _MyDrawerState extends State<MyDrawer> {
  List<NavMenuItem> navItem = [
-   NavMenuItem('Explore', ()=> Walkthrough()),
-   NavMenuItem('title', ()=>HeadlineNew()),
+   NavMenuItem('On Boarding', ()=> Walkthrough()),
+   NavMenuItem('Headline news', ()=>HeadlineNew()),
  ];
   @override
   Widget build(BuildContext context) {
