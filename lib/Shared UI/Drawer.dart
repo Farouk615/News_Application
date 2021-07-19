@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_application/screens/Twitter_feed.dart';
 import '../Models/NavMenuItem.dart';
 import '../screens/HeadlineNews.dart';
 import '../screens/Walkthrough.dart';
@@ -13,6 +14,8 @@ class _MyDrawerState extends State<MyDrawer> {
  List<NavMenuItem> navItem = [
    NavMenuItem('On Boarding', ()=> Walkthrough()),
    NavMenuItem('Headline news', ()=>HeadlineNew()),
+   NavMenuItem('Twitter Feeds', ()=>TwitterFeed()),
+
  ];
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,8 @@ class _MyDrawerState extends State<MyDrawer> {
             title: Text(navItem[index].title),
             trailing: Icon(Icons.chevron_right),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context){
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context){
                 return navItem[index].destination();
     },
               )

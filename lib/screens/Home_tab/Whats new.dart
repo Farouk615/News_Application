@@ -145,18 +145,16 @@ class _WhatsUpState extends State<WhatsUp> {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 100),
-                              child: Text('The World Global Warming Annual Summit ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),
+                              padding: const EdgeInsets.only(left: 20 , top: 12),
+                              child: Expanded(child: Text('The World Global Warming Annual Summit ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),)),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 25),
+                              padding: const EdgeInsets.only(top: 25 , left: 20),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 200),
-                                    child: Text('Michael Adams'),
-                                  ),
+                                  Text('Michael Adams'),
+                                  SizedBox(width: 50,),
                                   Icon(Icons.timer),
                                   Text('15 min'),
                                 ],

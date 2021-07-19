@@ -2,6 +2,6 @@ import 'package:flutter/material.dart';
  class AppTheme {
 
    static ThemeData appTheme = ThemeData(
-     primaryColor: Colors.deepOrange,
+     primaryColor: Colors.red.shade700,
    );
  }
