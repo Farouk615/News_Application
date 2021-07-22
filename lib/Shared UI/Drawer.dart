@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_application/screens/Instagram_feed.dart';
 import 'package:news_application/screens/Twitter_feed.dart';
 import '../Models/NavMenuItem.dart';
 import '../screens/HeadlineNews.dart';
@@ -15,6 +16,8 @@ class _MyDrawerState extends State<MyDrawer> {
    NavMenuItem('On Boarding', ()=> Walkthrough()),
    NavMenuItem('Headline news', ()=>HeadlineNew()),
    NavMenuItem('Twitter Feeds', ()=>TwitterFeed()),
+   NavMenuItem('Instagram Feeds', ()=>InstagramFeed()),
+
 
  ];
   @override
