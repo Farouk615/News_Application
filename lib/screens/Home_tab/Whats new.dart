@@ -145,8 +145,8 @@ class _WhatsUpState extends State<WhatsUp> {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 20 , top: 12),
-                              child: Expanded(child: Text('The World Global Warming Annual Summit ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),)),
+                                padding: const EdgeInsets.only(left: 10 , top: 12 ),
+                              child : Center(child: Text('hey World Global Warming Annual Summit',style: TextStyle(fontWeight: FontWeight.bold,fontSize:13),)),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 25 , left: 20),

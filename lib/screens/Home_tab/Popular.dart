@@ -41,7 +41,7 @@ class _PopularState extends State<Popular> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 20 , top: 12),
-                              child: Text('The World Global Warming Annual Summit ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
+                              child: Text('The World Global Warming Annual Summit ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 25 , left: 20),

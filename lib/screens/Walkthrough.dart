@@ -64,9 +64,9 @@ _addPages();
                   image: DecorationImage(image: ExactAssetImage(pages[index].image), fit: BoxFit.fill)
                 ),
               ),
-              Align(
-                alignment : Alignment.center,
+              Center(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center, // 3ala9tou maa contents mte3ou
                   children: <Widget>[
                     Transform.translate(offset: Offset(0,-50),
@@ -75,7 +75,8 @@ _addPages();
                       padding: const EdgeInsets.all(20),
                       child: Text('Welcome',style: TextStyle(color: Colors.white,fontSize: 35),),
                     ),
-                    Text( pages[index].text,style: TextStyle(color: Colors.white)),
+                   Center(child: Text( pages[index].text,style: TextStyle(color: Colors.white, ))),
+
                   ],
                 ),
               )
@@ -103,7 +104,6 @@ _addPages();
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: SizedBox(
-
                   width: double.infinity,
                   child: ElevatedButton(style: ButtonStyle(),
                       onPressed: () {

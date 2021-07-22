@@ -21,7 +21,8 @@ class _TwitterFeedState extends State<TwitterFeed> {
         title: Text('Twitter Feeds'),
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search)),],
       ),
-      body: ListView.builder(itemBuilder: (BuildContext context, int index) {
+      body: ListView.builder(padding: EdgeInsets.all(12) ,itemBuilder: (BuildContext context, int index) {
+
     return Card(
     child: _drawcard(titles[index], identifiers[index]),
     );
@@ -41,7 +42,10 @@ Widget _drawCircle(){
         children: [
       Row(
       children: [
-      _drawCircle(),
+      Padding(
+        padding: const EdgeInsets.only(left: 13),
+        child: _drawCircle(),
+      ),
       Padding(
         padding: const EdgeInsets.only(left: 10),
         child: Column(
@@ -62,7 +66,7 @@ Widget _drawCircle(){
       ]
     ),
      Padding(
-       padding: const EdgeInsets.only(top: 13),
+       padding: const EdgeInsets.all( 13),
        child: Center(child: Text('We also talk about the future of work as the robots advance, and we ask whether a retro phone',style: TextStyle(fontSize: 20),)),
      ),
           Container(
@@ -71,9 +75,22 @@ Widget _drawCircle(){
             color: Colors.grey,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.twenty_two_mp)),
-              Text('25'),
+
+              Row(
+                children: [
+                  IconButton(onPressed: () {}, icon: Icon(Icons.repeat,color: Colors.orange,)),
+                  Text('25'),
+                ],
+              ),
+              Row(
+                children: [
+                  TextButton(onPressed: (){}, child: Text('SHARE',style: TextStyle(color: Colors.orange),)),
+                  TextButton(onPressed: (){}, child: Text('OPEN',style: TextStyle(color: Colors.orange)))
+
+                ],
+              )
 
             ],
           )
