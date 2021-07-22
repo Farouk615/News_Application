@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_application/Shared%20UI/Drawer.dart';
 class InstagramFeed extends StatefulWidget {
@@ -15,7 +16,7 @@ class _InstagramFeedState extends State<InstagramFeed> {
     return Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
-          title: Text('Twitter Feeds'),
+          title: Text('Instagram Feeds'),
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search)),],
         ),
         body: ListView.builder(padding: EdgeInsets.all(12) ,itemBuilder: (BuildContext context, int index) {
@@ -71,6 +72,16 @@ class _InstagramFeedState extends State<InstagramFeed> {
             padding: const EdgeInsets.all( 13),
             child: Center(child: Text('We also talk about the future of work as the robots ')),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(onPressed: (){}, child: Text('#Advance',style: TextStyle(color: Colors.orange,fontWeight: FontWeight.bold),)),
+              TextButton(onPressed: (){}, child: Text('#Advance',style: TextStyle(color: Colors.orange,fontWeight: FontWeight.bold),)),
+              TextButton(onPressed: (){}, child: Text('#Advance',style: TextStyle(color: Colors.orange,fontWeight: FontWeight.bold),)),
+
+            ],
+          ),
+
           SizedBox(
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 0.25,
