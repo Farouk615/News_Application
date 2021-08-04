@@ -32,6 +32,7 @@ dependencies:
   page_indicator: ^0.4.1
   page_view_indicator: ^2.0.4
   shared_preferences: ^2.0.6
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:
