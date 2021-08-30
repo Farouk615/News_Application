@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_application/utilities/MyTheme.dart';
-
+import 'Api/Authors_api.dart';
+import 'Models/author.dart';
 import 'screens/Walkthrough.dart';
 
 void main() {
