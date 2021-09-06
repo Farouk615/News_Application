@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:news_application/screens/HomePage.dart';
 import 'package:page_view_indicator/page_view_indicator.dart';
 import '../Models/PageModel.dart';
+import 'package:news_application/Api/Categorys_api.dart';
+
 
 class Walkthrough extends StatefulWidget {
   const Walkthrough({Key? key}) : super(key: key);
+
+
 
   @override
   _WalkthroughState createState() => _WalkthroughState();
@@ -49,8 +53,11 @@ void _addPages(){
 
   @override
   Widget build(BuildContext context) {
+    Categorys_api categorys_api = Categorys_api();
+    categorys_api.fetchAllCategorys();
 
-_addPages();
+
+    _addPages();
 
 
         return Scaffold(

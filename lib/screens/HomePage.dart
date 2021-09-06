@@ -3,6 +3,7 @@ import 'package:news_application/Shared%20UI/Drawer.dart';
 import 'package:news_application/screens/Home_tab/Popular.dart';
 import 'package:news_application/screens/Home_tab/Whats%20new.dart';
 import 'Home_tab/Favorited.dart';
+import 'package:news_application/Api/Categorys_api.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -11,6 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Categorys_api categorys_api = Categorys_api();
 
   @override
   Widget build(BuildContext context) {
