@@ -2,7 +2,10 @@ import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:async';
+import 'package:news_application/Models/Post.dart';
+import 'package:news_application/Api/Posts_api.dart';
+import 'package:timeago/timeago.dart' as timeago;
 class WhatsUp extends StatefulWidget {
   const WhatsUp({Key? key}) : super(key: key);
 
@@ -11,6 +14,7 @@ class WhatsUp extends StatefulWidget {
 }
 
 class _WhatsUpState extends State<WhatsUp> {
+  Posts_api posts_api = Posts_api();
 
   TextStyle _headerstyle = TextStyle(
     fontSize: 20,
@@ -20,23 +24,31 @@ class _WhatsUpState extends State<WhatsUp> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView( // if the elements are bigger than the page it will scroll
-      child: Column(
-        children: [
-          _drawHeader(),
-          _writeTitle('Top Stories'),
-          _drawTopStoriesCard(),
-          _drawLineBreaker(),
-          _drawTopStoriesCard(),
-          _drawLineBreaker(),
-          _drawTopStoriesCard(),
-          _writeTitle('Recent Updates'),
-          _drawRecentUpdates('SPORT','Vettel is Ferrari Number One - Hamilton',Colors.deepOrange),
-          _drawRecentUpdates('LIFESTYLE','The City in Pakistan that Loves a British Hairstyles',Colors.lightGreen),
-          SizedBox(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.width * 0.05,
-          )
-        ],),
+      child: FutureBuilder( // we wrap the content with a future builder
+        future: posts_api.fetchAllPosts(),
+        builder:(context, AsyncSnapshot snapshot) { // return of fetchAllPosts function recuperer here
+          Post post1 =snapshot.data[0]; // building posts
+          Post post2 =snapshot.data[1];
+          Post post3 =snapshot.data[2];
+          return Column(
+            children: [
+              _drawHeader(),
+              _writeTitle('Top Stories'),
+              _drawTopStoriesCard(post1),
+              _drawLineBreaker(),
+              _drawTopStoriesCard(post2),
+              _drawLineBreaker(),
+              _drawTopStoriesCard(post3),
+              _writeTitle('Recent Updates'),
+              _drawRecentUpdates('SPORT','Vettel is Ferrari Number One - Hamilton',Colors.deepOrange),
+              _drawRecentUpdates('LIFESTYLE','The City in Pakistan that Loves a British Hairstyles',Colors.lightGreen),
+              SizedBox(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.width * 0.05,
+              )
+            ],);
+        }
+      ),
     );
   }
   Widget _drawRecentUpdates(String title ,  String header , MaterialColor color ){
@@ -120,7 +132,7 @@ class _WhatsUpState extends State<WhatsUp> {
   Widget _writeTitle(String title){
     return Text(title,style: TextStyle(color: Colors.grey,),);
   }
-  Widget _drawTopStoriesCard(){
+  Widget _drawTopStoriesCard(Post post){
     return Container(
       color: Color(0xfafafa),
       child: Column(
@@ -137,16 +149,13 @@ class _WhatsUpState extends State<WhatsUp> {
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.15,
                           height: MediaQuery.of(context).size.width * 0.1,
-                          child: Image(
-                              image: ExactAssetImage('assets/images/back.jpg'), fit: BoxFit.fill
-                          ),
-
+                          child: Image.network(post.featured_image, fit: BoxFit.fill),
                         ),
                         Column(
                           children: [
                             Padding(
                                 padding: const EdgeInsets.only(left: 10 , top: 12 ),
-                              child : Center(child: Text('hey World Global Warming Annual Summit',style: TextStyle(fontWeight: FontWeight.bold,fontSize:13),)),
+                              child : Center(child: Text(post.title,style: TextStyle(fontWeight: FontWeight.bold,fontSize:13),)),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 25 , left: 20),
@@ -156,7 +165,7 @@ class _WhatsUpState extends State<WhatsUp> {
                                   Text('Michael Adams'),
                                   SizedBox(width: 50,),
                                   Icon(Icons.timer),
-                                  Text('15 min'),
+                                  Text(_parseHumanDateTime(post.date_written)),
                                 ],
                               ),
                             )
@@ -179,5 +188,8 @@ class _WhatsUpState extends State<WhatsUp> {
       height: 1,
       color: Colors.black,
     );
+  }
+  String _parseHumanDateTime(String dateTime){
+return dateTime;
   }
 }
