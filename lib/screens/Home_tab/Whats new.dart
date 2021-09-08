@@ -27,28 +27,61 @@ class _WhatsUpState extends State<WhatsUp> {
       child: FutureBuilder( // we wrap the content with a future builder
         future: posts_api.fetchAllPosts(),
         builder:(context, AsyncSnapshot snapshot) { // return of fetchAllPosts function recuperer here
-          Post post1 =snapshot.data[0]; // building posts
-          Post post2 =snapshot.data[1];
-          Post post3 =snapshot.data[2];
-          return Column(
-            children: [
-              _drawHeader(),
-              _writeTitle('Top Stories'),
-              _drawTopStoriesCard(post1),
-              _drawLineBreaker(),
-              _drawTopStoriesCard(post2),
-              _drawLineBreaker(),
-              _drawTopStoriesCard(post3),
-              _writeTitle('Recent Updates'),
-              _drawRecentUpdates('SPORT','Vettel is Ferrari Number One - Hamilton',Colors.deepOrange),
-              _drawRecentUpdates('LIFESTYLE','The City in Pakistan that Loves a British Hairstyles',Colors.lightGreen),
-              SizedBox(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.width * 0.05,
-              )
-            ],);
-        }
-      ),
+          switch (snapshot.connectionState) {
+            case ConnectionState.active :
+              return _loading();
+            case ConnectionState.done :
+              if (snapshot.error != null) {
+                //TODO : handle error
+                return _loading();
+              }
+              else {
+                if (snapshot.hasData) {
+                  List<Post> posts = snapshot.data;
+                  if (posts.length >=3){
+                    Post post1 = snapshot.data[0]; // building posts
+                    Post post2 = snapshot.data[1];
+                    Post post3 = snapshot.data[2];
+                    return Column(
+                      children: [
+                        _drawHeader(),
+                        _writeTitle('Top Stories'),
+                        _drawTopStoriesCard(post1),
+                        _drawLineBreaker(),
+                        _drawTopStoriesCard(post2),
+                        _drawLineBreaker(),
+                        _drawTopStoriesCard(post3),
+                        _writeTitle('Recent Updates'),
+                        _drawRecentUpdates(
+                            'SPORT', 'Vettel is Ferrari Number One - Hamilton',
+                            Colors.deepOrange),
+                        _drawRecentUpdates('LIFESTYLE',
+                            'The City in Pakistan that Loves a British Hairstyles',
+                            Colors.lightGreen),
+                        SizedBox(
+                          width: double.infinity,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.05,
+                        )
+                      ],);
+                  }
+                  else
+                    return _noData();
+                }
+                else {
+                  //TODO : Handle error
+                  return _noData();
+                }
+              }
+            case ConnectionState.waiting :
+              return _loading();
+            case ConnectionState.none :
+            //TODO : Handle error
+              return _loading();
+          }
+        }),
     );
   }
   Widget _drawRecentUpdates(String title ,  String header , MaterialColor color ){
@@ -192,4 +225,18 @@ class _WhatsUpState extends State<WhatsUp> {
   String _parseHumanDateTime(String dateTime){
 return dateTime;
   }
+  Widget _loading(){
+    return Padding(
+      padding: const EdgeInsets.all(15),
+      child: Container(
+        child: Center(child: CircularProgressIndicator()),
+      ),
+    );
+  }
+  Widget _noData(){
+    return Container(
+      child: Center(child: Text('no Data Available ')),
+    );
+  }
 }
+
