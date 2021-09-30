@@ -6,6 +6,8 @@ import 'dart:async';
 import 'package:news_application/Models/Post.dart';
 import 'package:news_application/Api/Posts_api.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
+import '../SinglePost.dart';
 class WhatsUp extends StatefulWidget {
   const WhatsUp({Key? key}) : super(key: key);
 
@@ -142,32 +144,39 @@ class _WhatsUpState extends State<WhatsUp> {
 
   }
   Widget _drawHeader(Post post){
-    return (
-       Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(post.featured_image),
-            fit: BoxFit.cover,
-          )
-        ),
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.25,
-
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10 , right: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 15),
-                  child: Text(post.title,style: _headerstyle,),
-                ),
-                Text(post.content,style: TextStyle(color: Colors.white),),
-              ],),
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context){
+          return SinglePost(post);
+        }));
+      },
+      child: (
+         Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(post.featured_image),
+              fit: BoxFit.cover,
+            )
           ),
-        ),
-      )
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height * 0.25,
+
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10 , right: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 15),
+                    child: Text(post.title,style: _headerstyle,),
+                  ),
+                  Text(post.content,style: TextStyle(color: Colors.white),),
+                ],),
+            ),
+          ),
+        )
+      ),
     );
   }
   Widget _writeTitle(String title){
