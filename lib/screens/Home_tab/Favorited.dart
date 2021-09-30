@@ -1,7 +1,9 @@
 import 'dart:html';
 import 'dart:math';
-
+import 'package:news_application/Models/Post.dart';
+import 'package:news_application/utilities/data_utilities.dart';
 import 'package:flutter/material.dart';
+import 'package:news_application/Api/Posts_api.dart';
 
 class Favorite extends StatefulWidget {
   const Favorite({Key? key}) : super(key: key);
@@ -24,14 +26,51 @@ Random random = Random();
   }
   @override
   Widget build(BuildContext context) {
+    Posts_api posts_api = Posts_api();
     return ListView.builder(itemBuilder: (BuildContext context,int index){
-      return Card(
-        child: Column(
-          children: [
-            _drawAuthorRow(Colors.deepOrange),
-            _drawItemRow(),
-          ],
-        ),
+      return FutureBuilder(
+        future: posts_api.fetchFavorited(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.active :
+              return loading();
+            case ConnectionState.done :
+              if (snapshot.error != null) {
+                //TODO : handle error
+                return loading();
+              }
+              else {
+                if (snapshot.hasData) {
+                  List<Post> posts = snapshot.data;
+                  if (posts.length >=3){
+                    Post post1 = snapshot.data[0]; // building posts
+                    Post post2 = snapshot.data[1];
+                    Post post3 = snapshot.data[2];
+                    return
+                      Card(
+                        child: Column(
+                          children: [
+                            _drawAuthorRow(Colors.deepOrange),
+                            _drawItemRow(),
+                          ],
+                        ),
+                      );
+                  }
+                  else
+                    return noData();
+                }
+                else {
+                  //TODO : Handle error
+                  return noData();
+                }
+              }
+            case ConnectionState.waiting :
+              return loading();
+            case ConnectionState.none :
+            //TODO : Handle error
+              return loading();
+          }
+        },
       );
     },
     itemCount: 20,);

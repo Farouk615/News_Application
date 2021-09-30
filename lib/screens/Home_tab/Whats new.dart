@@ -1,5 +1,5 @@
 import 'dart:html';
-
+import 'package:news_application/utilities/data_utilities.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -29,11 +29,11 @@ class _WhatsUpState extends State<WhatsUp> {
         builder:(context, AsyncSnapshot snapshot) { // return of fetchAllPosts function recuperer here
           switch (snapshot.connectionState) {
             case ConnectionState.active :
-              return _loading();
+              return loading();
             case ConnectionState.done :
               if (snapshot.error != null) {
                 //TODO : handle error
-                return _loading();
+                return loading();
               }
               else {
                 if (snapshot.hasData) {
@@ -42,9 +42,11 @@ class _WhatsUpState extends State<WhatsUp> {
                     Post post1 = snapshot.data[0]; // building posts
                     Post post2 = snapshot.data[1];
                     Post post3 = snapshot.data[2];
+                    Post post4 = snapshot.data[4];
+
                     return Column(
                       children: [
-                        _drawHeader(),
+                        _drawHeader(post4),
                         _writeTitle('Top Stories'),
                         _drawTopStoriesCard(post1),
                         _drawLineBreaker(),
@@ -54,10 +56,10 @@ class _WhatsUpState extends State<WhatsUp> {
                         _writeTitle('Recent Updates'),
                         _drawRecentUpdates(
                             'SPORT', 'Vettel is Ferrari Number One - Hamilton',
-                            Colors.deepOrange),
+                            Colors.deepOrange,post3),
                         _drawRecentUpdates('LIFESTYLE',
                             'The City in Pakistan that Loves a British Hairstyles',
-                            Colors.lightGreen),
+                            Colors.lightGreen,post2),
                         SizedBox(
                           width: double.infinity,
                           height: MediaQuery
@@ -68,23 +70,23 @@ class _WhatsUpState extends State<WhatsUp> {
                       ],);
                   }
                   else
-                    return _noData();
+                    return noData();
                 }
                 else {
                   //TODO : Handle error
-                  return _noData();
+                  return noData();
                 }
               }
             case ConnectionState.waiting :
-              return _loading();
+              return loading();
             case ConnectionState.none :
             //TODO : Handle error
-              return _loading();
+              return loading();
           }
         }),
     );
   }
-  Widget _drawRecentUpdates(String title ,  String header , MaterialColor color ){
+  Widget _drawRecentUpdates(String title ,  String header , MaterialColor color , Post post ){
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
@@ -95,9 +97,9 @@ class _WhatsUpState extends State<WhatsUp> {
               width: double.infinity,
               height: MediaQuery.of(context).size.width * 0.25 ,
               decoration: BoxDecoration(
-                  image:DecorationImage(
-                      image: ExactAssetImage('assets/images/back.jpg'),
-                      fit: BoxFit.cover
+                  image: DecorationImage(
+                    image: NetworkImage(post.featured_image),
+                    fit: BoxFit.cover,
                   )
               ),
             ),
@@ -105,17 +107,19 @@ class _WhatsUpState extends State<WhatsUp> {
               padding: const EdgeInsets.only(left: 20 , top: 18),
               child: Container(
                 decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(5),
+                    image: DecorationImage(
+                      image: NetworkImage(post.featured_image),
+                      fit: BoxFit.cover,
+                    )
                 ),
                 width: 95,
                 height: 18,
-                child: Text(title,textAlign: TextAlign.center,style: TextStyle(color: Colors.white),),
+                child: Text(post.title,textAlign: TextAlign.center,style: TextStyle(color: Colors.white),),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20 , top: 15),
-              child: Text(header,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 28),),
+              child: Text(post.content,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 28),),
             ),
             Row(
               children: [
@@ -137,30 +141,34 @@ class _WhatsUpState extends State<WhatsUp> {
     );
 
   }
-  Widget _drawHeader(){
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(image: ExactAssetImage('assets/images/back.jpg'), fit: BoxFit.fill),
-      ),
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.25,
-
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10 , right: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 15),
-                child: Text('How Terriers & Royals Gatecrashe Final',style: _headerstyle,),
-              ),
-              Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',style: TextStyle(color: Colors.white),),
-            ],),
+  Widget _drawHeader(Post post){
+    return (
+       Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(post.featured_image),
+            fit: BoxFit.cover,
+          )
         ),
-      ),
-    );
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.25,
 
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10 , right: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 15),
+                  child: Text(post.title,style: _headerstyle,),
+                ),
+                Text(post.content,style: TextStyle(color: Colors.white),),
+              ],),
+          ),
+        ),
+      )
+    );
   }
   Widget _writeTitle(String title){
     return Text(title,style: TextStyle(color: Colors.grey,),);
@@ -225,18 +233,6 @@ class _WhatsUpState extends State<WhatsUp> {
   String _parseHumanDateTime(String dateTime){
 return dateTime;
   }
-  Widget _loading(){
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Container(
-        child: Center(child: CircularProgressIndicator()),
-      ),
-    );
-  }
-  Widget _noData(){
-    return Container(
-      child: Center(child: Text('no Data Available ')),
-    );
-  }
+
 }
 
