@@ -92,51 +92,58 @@ class _WhatsUpState extends State<WhatsUp> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.width * 0.25 ,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(post.featured_image),
-                    fit: BoxFit.cover,
-                  )
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20 , top: 18),
-              child: Container(
+        child: GestureDetector(
+          onTap:(){
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return SinglePost(post);
+            }));
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.width * 0.25 ,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(post.featured_image),
                       fit: BoxFit.cover,
                     )
                 ),
-                width: 95,
-                height: 18,
-                child: Text(post.title,textAlign: TextAlign.center,style: TextStyle(color: Colors.white),),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20 , top: 15),
-              child: Text(post.content,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 28),),
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20 , top: 10),
-                  child: Icon(Icons.timer,color: Colors.grey,),
+              Padding(
+                padding: const EdgeInsets.only(left: 20 , top: 18),
+                child: Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(post.featured_image),
+                        fit: BoxFit.cover,
+                      )
+                  ),
+                  width: 95,
+                  height: 18,
+                  child: Text(post.title,textAlign: TextAlign.center,style: TextStyle(color: Colors.white),),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only( top: 10),
-                  child: Text('15 min',style: TextStyle(color: Colors.grey),),
-                )
-              ],
-            )
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20 , top: 15),
+                child: Text(post.content,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 28),),
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20 , top: 10),
+                    child: Icon(Icons.timer,color: Colors.grey,),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only( top: 10),
+                    child: Text('15 min',style: TextStyle(color: Colors.grey),),
+                  )
+                ],
+              )
 
-          ],
+            ],
+          ),
         ),
 
       ),
@@ -183,55 +190,64 @@ class _WhatsUpState extends State<WhatsUp> {
     return Text(title,style: TextStyle(color: Colors.grey,),);
   }
   Widget _drawTopStoriesCard(Post post){
-    return Container(
-      color: Color(0xfafafa),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.15,
-                          height: MediaQuery.of(context).size.width * 0.1,
-                          child: Image.network(post.featured_image, fit: BoxFit.fill),
-                        ),
-                        Column(
+
+      return Container(
+        color: Color(0xfafafa),
+        child: GestureDetector(
+          onTap:(){
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return SinglePost(post);
+            }));
+          },
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Row(
                           children: [
-                            Padding(
-                                padding: const EdgeInsets.only(left: 10 , top: 12 ),
-                              child : Center(child: Text(post.title,style: TextStyle(fontWeight: FontWeight.bold,fontSize:13),)),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              height: MediaQuery.of(context).size.width * 0.1,
+                              child: Image.network(post.featured_image, fit: BoxFit.fill),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 25 , left: 20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Michael Adams'),
-                                  SizedBox(width: 50,),
-                                  Icon(Icons.timer),
-                                  Text(_parseHumanDateTime(post.date_written)),
-                                ],
-                              ),
+                            Column(
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 10 , top: 12 ),
+                                  child : Center(child: Text(post.title,style: TextStyle(fontWeight: FontWeight.bold,fontSize:13),)),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 25 , left: 20),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Michael Adams'),
+                                      SizedBox(width: 50,),
+                                      Icon(Icons.timer),
+                                      Text(_parseHumanDateTime(post.date_written)),
+                                    ],
+                                  ),
+                                )
+                              ],
                             )
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          )
+                ),
+              )
 
-        ],
-      ),
-    );
+            ],
+          ),
+        ),
+      );
+
   }
   Widget _drawLineBreaker(){
     return Container(

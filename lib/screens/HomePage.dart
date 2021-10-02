@@ -24,7 +24,9 @@ class _HomePageState extends State<HomePage> {
           title: Text('Explore'),
           actions: [
             IconButton(onPressed: (){}, icon: Icon(Icons.search)),
-            IconButton(onPressed: (){}, icon: Icon(Icons.more_vert))
+            IconButton(onPressed: (){
+              
+            }, icon: Icon(Icons.more_vert))
           ],
           bottom: TabBar(tabs: [
             Tab(text: 'WHATS NEW',),
